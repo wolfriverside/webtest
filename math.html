@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2023自主學習</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    img {
+      width: 450px;
+      height: 300px;
+      margin: 20px 0;
+    }
+    input, button {
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>特斯拉數字</h1>
+
+  <img src="your_image_url" alt="Image">
+
+  <br>
+
+  <label for="inputN">輸入2的平方（N）：</label>
+  <input type="number" id="inputN">
+  <br>
+
+  <button onclick="calculate()">運算</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const inputN = parseInt(document.getElementById('inputN').value);
+      const resultDiv = document.getElementById('result');
+
+      if (!isNaN(inputN)) {
+        const squareResult = Math.pow(2, inputN);
+        resultDiv.innerHTML = `2的${inputN}平方等於：${squareResult}<br>`;
+        let sum = 0;
+        for (let digit of squareResult.toString()) {
+          sum += parseInt(digit);
+        }
+        while (sum > 9) {
+          let tempSum = 0;
+          for (let digit of sum.toString()) {
+            tempSum += parseInt(digit);
+          }
+          sum = tempSum;
+        }
+        if (sum === 1 || sum === 2 || sum === 4 || sum === 5 || sum === 7 || sum === 8) {
+          resultDiv.innerHTML += '結果：' + sum;
+        } else {
+          resultDiv.innerHTML += '結果：哦！它不是2的平方';
+        }
+      } else {
+        resultDiv.innerHTML = '請輸入有效數字。';
+      }
+    }
+  </script>
+
+</body>
+</html>
