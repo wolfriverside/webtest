@@ -1,54 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2023自主學習資料</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2023自主學習</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    input, button {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <label for="inputNumber">輸入數字：</label>
-    <input type="number" id="inputNumber">
-    <button onclick="calculateSum()">計算</button>
-    <p id="result"></p>
-    <p id="error" style="color: red;"></p>
-    <img id="placeholder" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPKSRmedoOklgO4Jo9Q3OxibjGNX0dUA5trYV6zwoqjylxv8hW_65aHEFpA4P6U2gK-0JxfiPu7rQ9p7J6lrUpE2mCALFh1JqqrJfTrOrF4LffUzaSsp9v8iOFig1IdenSt6ctOBfeV1_iQKbR8JoxMGi4fAZEIjgCytCh4164-ZC6gMduv16rEqv52Rk_/s2399/IMG_0028.jpeg" width="300" height="200" alt="Your Image">
 
-    <script>
-        function sumDigits(number) {
-            var digits = number.toString().split('').map(Number);
-            var total = 0;
+  <h1>特斯拉數字</h1>
 
-            for (var i = 0; i < digits.length; i++) {
-                total += digits[i];
+  <label for="inputN">輸入2的平方（N）：</label>
+  <input type="number" id="inputN">
+  <br>
 
-                if (total >= 10) {
-                    total = total % 10 + Math.floor(total / 10);
-                }
-            }
+  <label for="inputOther">其他：</label>
+  <input type="text" id="inputOther">
+  <br>
 
-            return total;
+  <button onclick="calculate()">運算</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculate() {
+      const inputN = parseInt(document.getElementById('inputN').value);
+      const inputOther = document.getElementById('inputOther').value;
+
+      const resultDiv = document.getElementById('result');
+
+      if (!isNaN(inputN)) {
+        const squareResult = Math.pow(2, inputN);
+        resultDiv.innerHTML = `2的${inputN}平方等於：${squareResult}<br>`;
+
+        let sum = 0;
+        for (let digit of squareResult.toString()) {
+          sum += parseInt(digit);
         }
 
-        function calculateSum() {
-            var inputNumber = document.getElementById("inputNumber").value;
-
-            // 檢查是否為空值或非數字
-            if (inputNumber === '' || isNaN(inputNumber)) {
-                document.getElementById("error").innerText = "請輸入有效數字";
-                return;
-            }
-
-            var result = sumDigits(inputNumber);
-
-            // 檢查計算結果是否為2
-            if (result !== 2) {
-                document.getElementById("error").innerText = "錯誤：計算結果應為2";
-            } else {
-                document.getElementById("error").innerText = ""; // 清空錯誤訊息
-            }
-
-            document.getElementById("result").innerText = "總和：" + result;
+        while (sum > 9) {
+          let tempSum = 0;
+          for (let digit of sum.toString()) {
+            tempSum += parseInt(digit);
+          }
+          sum = tempSum;
         }
-    </script>
+
+        if (sum === 1 || sum === 2 || sum === 4 || sum === 5 || sum === 7 || sum === 8) {
+          resultDiv.innerHTML += '結果：' + sum;
+        } else {
+          resultDiv.innerHTML += `結果：${inputOther}，哦！它不是2的平方`;
+        }
+      } else {
+        resultDiv.innerHTML = '請輸入有效數字。';
+      }
+    }
+  </script>
+
 </body>
 </html>
