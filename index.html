@@ -6,10 +6,15 @@
   <title>2023自主學習</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      text-align: center;
-      background-color: #f0f0f0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
     h1 {
       color: #333;
@@ -18,45 +23,101 @@
       width: 450px;
       height: 300px;
       margin: 20px 0;
+      border: 2px solid #ddd;
+      border-radius: 8px;
     }
-    input, button {
+    #calculator {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    input {
       margin-bottom: 10px;
+      padding: 10px;
+      font-size: 18px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #keyboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 250px;
+      margin: 20px auto;
     }
     button {
+      padding: 15px;
+      font-size: 16px;
       background-color: #4caf50;
       color: white;
-      padding: 10px 20px;
-      font-size: 16px;
       border: none;
       cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
     }
     button:hover {
       background-color: #45a049;
+    }
+    button:active {
+      background-color: #3f9142;
     }
     #result {
       font-size: 18px;
       font-weight: bold;
       color: #333;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <h1>特斯拉數字</h1>
+  <div id="calculator">
+    <h1>特斯拉數字</h1>
 
-  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPKSRmedoOklgO4Jo9Q3OxibjGNX0dUA5trYV6zwoqjylxv8hW_65aHEFpA4P6U2gK-0JxfiPu7rQ9p7J6lrUpE2mCALFh1JqqrJfTrOrF4LffUzaSsp9v8iOFig1IdenSt6ctOBfeV1_iQKbR8JoxMGi4fAZEIjgCytCh4164-ZC6gMduv16rEqv52Rk_/s2399/IMG_0028.jpeg" alt="Image">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPKSRmedoOklgO4Jo9Q3OxibjGNX0dUA5trYV6zwoqjylxv8hW_65aHEFpA4P6U2gK-0JxfiPu7rQ9p7J6lrUpE2mCALFh1JqqrJfTrOrF4LffUzaSsp9v8iOFig1IdenSt6ctOBfeV1_iQKbR8JoxMGi4fAZEIjgCytCh4164-ZC6gMduv16rEqv52Rk_/s2399/IMG_0028.jpeg" alt="Image">
 
-  <br>
+    <label for="inputN">輸入2的平方（N）：</label>
+    <input type="text" id="inputN" readonly>
+    
+    <div id="keyboard">
+      <button onclick="appendToInput('1')">1</button>
+      <button onclick="appendToInput('2')">2</button>
+      <button onclick="appendToInput('3')">3</button>
+      <button onclick="appendToInput('DEL')">DEL</button>
 
-  <label for="inputN">輸入2的平方（N）：</label>
-  <input type="number" id="inputN">
-  <br>
+      <button onclick="appendToInput('4')">4</button>
+      <button onclick="appendToInput('5')">5</button>
+      <button onclick="appendToInput('6')">6</button>
+      <button onclick="clearInput()">C</button>
 
-  <button onclick="calculate()">運算</button>
+      <button onclick="appendToInput('7')">7</button>
+      <button onclick="appendToInput('8')">8</button>
+      <button onclick="appendToInput('9')">9</button>
+      <button onclick="appendToInput('0')">0</button>
+    </div>
 
-  <div id="result"></div>
+    <button onclick="calculate()">運算</button>
+
+    <div id="result"></div>
+  </div>
 
   <script>
+    function appendToInput(value) {
+      const inputN = document.getElementById('inputN');
+      if (value === 'DEL') {
+        inputN.value = inputN.value.slice(0, -1);
+      } else {
+        inputN.value += value;
+      }
+    }
+
+    function clearInput() {
+      document.getElementById('inputN').value = '';
+    }
+
     function calculate() {
       const inputN = parseInt(document.getElementById('inputN').value);
       const resultDiv = document.getElementById('result');
